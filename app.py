@@ -19,21 +19,7 @@ def index_page():
 @app.route('/process', methods=['POST'])
 def process_image():
     """Process image handler."""
-    image_file = request.files['pic']
-    image_file.seek(0)  # important!
-    if image_file is None:
-        return 400, 'Missing file'
-
-    # parse form data
-    brightness = int(request.form.get('brightness', 0))
-    contrast = int(request.form.get('contrast', 0))
-    sharpen = int(request.form.get('sharpen', 0))
-    tint = request.form.get('tint')
-    tint_strength = int(request.form.get('tint_strength', 0))
-    processed_file = apply_filters(
-        image_file, brightness=brightness, contrast=contrast,
-        sharpen=sharpen, tint=tint, tint_strength=tint_strength)
-    return send_file(processed_file, cache_timeout=0, mimetype='image/jpeg')
+    return 200  # TODO: implement process_image handler
 
 
 if __name__ == '__main__':

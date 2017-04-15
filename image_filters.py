@@ -18,28 +18,17 @@ def blend_components(original_component, tint_component, tint_strength):
     original_color and tint_color are integers in [0, 255].
     Formula: http://stackoverflow.com/a/29321264
     """
-    tint_factor = tint_strength / 100.
-    return round((
-        (1 - tint_factor) * original_component ** 2 +
-        tint_factor * tint_component ** 2) ** 0.5)
+    return 0  # TODO: implement formula
 
 
 def apply_brightness(im, brightness):
     """Apply brightness to image and returns it."""
-    if brightness == 0:
-        return im
-    factor = 1. + brightness / 100.
-    enh = ImageEnhance.Brightness(im)
-    return enh.enhance(factor)
+    return im  # TODO: implement brightness filter
 
 
 def apply_contrast(im, contrast):
     """Apply contrast to image and returns it."""
-    if contrast == 0:
-        return im
-    factor = 1. + contrast / 100.
-    enh = ImageEnhance.Contrast(im)
-    return enh.enhance(factor)
+    return im  # TODO: implement contrast filter
 
 
 def apply_sharpen(im, sharpen):
@@ -47,11 +36,7 @@ def apply_sharpen(im, sharpen):
 
     If sharpen is negative, the image will be blurred.
     """
-    if sharpen == 0:
-        return im
-    factor = 1. + sharpen / 100.
-    enh = ImageEnhance.Sharpness(im)
-    return enh.enhance(factor)
+    return im  # TODO: implement sharpen filter
 
 
 def apply_tint(im, tint_color, tint_strength):
@@ -60,19 +45,11 @@ def apply_tint(im, tint_color, tint_strength):
     tint_color is an RGB tuple.
     Quick Pixel Iteration: http://stackoverflow.com/a/2181473
     """
-    if tint_color is None:
-        return im
-    source = im.split()
-    reds = source[0].point(
-        lambda original_component: blend_components(
-            original_component, tint_color[0], tint_strength))
-    greens = source[1].point(
-        lambda original_component: blend_components(
-            original_component, tint_color[1], tint_strength))
-    blues = source[2].point(
-        lambda original_component: blend_components(
-            original_component, tint_color[2], tint_strength))
-    return Image.merge(im.mode, (reds, greens, blues))
+    return im  # TODO: implement tint color filter
+    # HINT: Check out these methods below
+    # Image.split: https://pillow.readthedocs.io/en/4.1.x/reference/Image.html#PIL.Image.Image.split
+    # Image.point: https://pillow.readthedocs.io/en/4.1.x/reference/Image.html#PIL.Image.Image.point
+    # PIL.Image.merge: https://pillow.readthedocs.io/en/4.1.x/reference/Image.html#PIL.Image.merge
 
 
 def apply_filters(input_file, **kwargs):
@@ -80,19 +57,4 @@ def apply_filters(input_file, **kwargs):
 
     Returns a BytesIO object representing the processed image as a JPG.
     """
-    brightness = kwargs.get('brightness', 0)
-    contrast = kwargs.get('contrast', 0)
-    sharpen = kwargs.get('sharpen', 0)
-    tint_color = parse_tint(kwargs.get('tint'))
-    tint_strength = kwargs.get('tint_strength', 0)
-
-    im = Image.open(input_file).convert('RGB')
-    im = apply_brightness(im, brightness)
-    im = apply_contrast(im, contrast)
-    im = apply_sharpen(im, sharpen)
-    im = apply_tint(im, tint_color, tint_strength)
-
-    output_file = BytesIO()
-    im.save(output_file, format='JPEG')
-    output_file.seek(0)  # important!
-    return output_file
+    return input_file  # TODO: implement
