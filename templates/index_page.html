@@ -4,6 +4,31 @@
   <h2>Welcome to Flask Image Filters</h2>
   <form action="/process" method="POST" enctype="multipart/form-data">
     <input type="file" name="pic" accept="image/*" required="required" />
+    <br/>
+    Brightness: <input type="range" name="brightness" min="-100" max="100" defaultValue="0" /> <span id="brightness_display">0</span>
+    <br/>
+    Contrast: <input type="range" name="contrast" min="-100" max="100" defaultValue="0" /> <span id="contrast_display">0</span>
+    <br/>
+    Blur/Sharpen: <input type="range" name="sharpen" min="-100" max="100" defaultValue="0" /> <span id="sharpen_display">0</span>
+    <br/>
+    Tint:
+    <select name="tint">
+      <option value="">None</option>
+      <option value="255,255,0">Yellow</option>
+      <option value="255,165,0">Orange</option>
+      <option value="255,0,0">Red</option>
+      <option value="128,0,0">Maroon</option>
+      <option value="255,0,255">Pink</option>
+      <option value="128,0,128">Purple</option>
+      <option value="0,0,128">Navy</option>
+      <option value="0,0,255">Blue</option>
+      <option value="0,255,255">Aqua</option>
+      <option value="0,255,0">Lime</option>
+      <option value="0,128,0">Green</option>
+    </select>
+    <br/>
+    Tint Strength: <input type="range" name="tint_strength" min="0" max="100" defaultValue="0" /> <span id="tint_strength_display">0</span>
+    <br/>
     <button type="submit">Submit</button>
   </form>
 </div>
